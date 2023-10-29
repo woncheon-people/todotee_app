@@ -31,10 +31,7 @@ class TodoStateLoading extends TodoState {
 
 class TodoStateSuccess extends TodoState {
   TodoStateSuccess({required super.todoList})
-      : super(
-          loading: false,
-          error: null
-        );
+      : super(loading: false, error: null);
 }
 
 class TodoStateError extends TodoState {
@@ -44,4 +41,3 @@ class TodoStateError extends TodoState {
           loading: false,
         );
 }
-

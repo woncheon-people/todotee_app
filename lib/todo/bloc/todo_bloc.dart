@@ -12,19 +12,24 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<GetTodosEvent>((event, emit) async {
       emit(TodoStateLoading(todoList: state.todoList));
       try {
-        await getTodoList(emit);
+        final res = await todoApi.getTodos();
+        List<TodoResponseDto> todoList =
+            res.map((e) => TodoResponseDto.fromJson(e)).toList();
+        emit(TodoStateSuccess(todoList: todoList));
       } catch (error) {
-        processError(error, emit);
+        _processError(error, emit);
       }
     });
 
     on<CreateTodoEvent>((event, emit) async {
       emit(TodoStateLoading(todoList: state.todoList));
       try {
-        await todoApi.create(event.body);
-        await getTodoList(emit);
+        final res = await todoApi.create(event.body);
+        final todo = TodoResponseDto.fromJson(res);
+        state.todoList.add(todo);
+        emit(TodoStateSuccess(todoList: state.todoList));
       } catch (error) {
-        processError(error, emit);
+        _processError(error, emit);
       }
     });
 
@@ -32,9 +37,14 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       emit(TodoStateLoading(todoList: state.todoList));
       try {
         await todoApi.modifyTodo(event.id, event.body);
-        await getTodoList(emit);
+        final int index =
+            state.todoList.indexWhere((element) => element.id == event.id);
+        final res = await todoApi.getTodoById(event.id);
+        final todo = TodoResponseDto.fromJson(res);
+        state.todoList[index] = todo;
+        emit(TodoStateSuccess(todoList: state.todoList));
       } catch (error) {
-        processError(error, emit);
+        _processError(error, emit);
       }
     });
 
@@ -42,21 +52,17 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       emit(TodoStateLoading(todoList: state.todoList));
       try {
         await todoApi.deleteTodoById(event.id);
-        await getTodoList(emit);
+        final int index =
+            state.todoList.indexWhere((element) => element.id == event.id);
+        state.todoList.removeAt(index);
+        emit(TodoStateSuccess(todoList: state.todoList));
       } catch (error) {
-        processError(error, emit);
+        _processError(error, emit);
       }
     });
   }
 
-  Future<void> getTodoList(Emitter<TodoState> emit) async {
-    final res = await todoApi.getTodos();
-    List<TodoResponseDto> todoList =
-        res.map((e) => TodoResponseDto.fromJson(e)).toList();
-    emit(TodoStateSuccess(todoList: todoList));
-  }
-
-  void processError(Object error, Emitter<TodoState> emit) {
+  void _processError(Object error, Emitter<TodoState> emit) {
     if (kDebugMode) {
       print(error);
     }

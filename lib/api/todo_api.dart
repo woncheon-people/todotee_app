@@ -9,14 +9,19 @@ class TodoApi {
 
   TodoApi({required this.client});
 
-  Future<void> create(TodoRequestDto body) async {
+  Future<Map<String, dynamic>> create(TodoRequestDto body) async {
     Uri uri = Uri.parse("${Constants.apiRoute}/todos");
     HttpClientRequest request = await client.postUrl(uri);
 
     request.headers.contentType = ContentType.json;
     request.write(jsonEncode(body));
 
-    await request.close();
+    HttpClientResponse response = await request.close();
+
+    final String jsonString = await response.transform(utf8.decoder).join();
+    final Map<String, dynamic> data = jsonDecode(jsonString);
+
+    return data;
   }
 
   Future<List<dynamic>> getTodos() async {
