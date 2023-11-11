@@ -1,0 +1,4 @@
+enum MemoEditType {
+  create,
+  modify,
+}

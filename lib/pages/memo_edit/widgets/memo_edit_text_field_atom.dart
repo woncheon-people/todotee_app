@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AddMemoTextFieldAtom extends StatelessWidget {
+class MemoEditTextFieldAtom extends StatelessWidget {
   final int? maxLines;
   final int? maxLength;
   final String? hintText;
@@ -8,7 +8,7 @@ class AddMemoTextFieldAtom extends StatelessWidget {
   final TextStyle? textStyle;
   final TextStyle? hintStyle;
 
-  const AddMemoTextFieldAtom({
+  const MemoEditTextFieldAtom({
     super.key,
     required this.controller,
     this.maxLines,
