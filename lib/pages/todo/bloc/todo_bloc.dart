@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todotee_app/api/todo_api.dart';
 import 'package:todotee_app/dto/todo_response_dto.dart';
-import 'package:todotee_app/todo/bloc/todo_event.dart';
-import 'package:todotee_app/todo/bloc/todo_state.dart';
+import 'package:todotee_app/pages/todo/bloc/todo_event.dart';
+import 'package:todotee_app/pages/todo/bloc/todo_state.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final TodoApi todoApi;
