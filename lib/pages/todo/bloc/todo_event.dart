@@ -2,6 +2,8 @@ import 'package:todotee_app/dto/todo_request_dto.dart';
 
 sealed class TodoEvent {}
 
+class TodoEventInitialize extends TodoEvent {}
+
 class GetTodosEvent extends TodoEvent {}
 
 class ModifyTodoEvent extends TodoEvent {

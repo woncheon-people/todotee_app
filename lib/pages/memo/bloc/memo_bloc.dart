@@ -9,7 +9,11 @@ import 'memo_state.dart';
 class MemoBloc extends Bloc<MemoEvent, MemoState> {
   final MemoApi memoApi;
 
-  MemoBloc({required this.memoApi}): super(MemoStateInit()) {
+  MemoBloc({required this.memoApi}) : super(MemoStateInit()) {
+    on<MemoEventInitialize>((event, emit) {
+      emit(MemoStateInit());
+    });
+
     on<GetMemosEvent>((event, emit) async {
       emit(MemoStateLoading(memoList: state.memoList));
       try {

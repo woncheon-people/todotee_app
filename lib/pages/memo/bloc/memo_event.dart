@@ -2,6 +2,8 @@ import '../../../dto/memo_request_dto.dart';
 
 sealed class MemoEvent {}
 
+class MemoEventInitialize extends MemoEvent {}
+
 class GetMemosEvent extends MemoEvent {}
 
 class ModifyMemoEvent extends MemoEvent {

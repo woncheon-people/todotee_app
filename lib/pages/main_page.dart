@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todotee_app/pages/main_page_nav_cubit.dart';
 import 'package:todotee_app/pages/main_page_nav_item.dart';
 import 'package:todotee_app/pages/memo/memo_page.dart';
+import 'package:todotee_app/pages/profile/profile_page.dart';
 import 'package:todotee_app/pages/todo/todo_page.dart';
 import 'package:todotee_app/widgets/logo_atom.dart';
 
@@ -33,10 +34,21 @@ class MainPage extends StatelessWidget {
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w700),
         ),
         iconItem: const BottomNavigationBarItem(
-          icon: Icon(Icons.check_box),
+          icon: Icon(Icons.edit_document),
           label: 'Memo',
         ),
         page: const MemoPage(),
+      ),
+      MainPageNavItem(
+        title: const Text(
+          'PROFILE',
+          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w700),
+        ),
+        iconItem: const BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+        page: const ProfilePage(),
       ),
     ];
 
@@ -44,6 +56,7 @@ class MainPage extends StatelessWidget {
       bloc: navCubit,
       builder: (context, currentIndex) => Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           centerTitle: false,
           title: const LogoAtom(),
           actions: [

@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 
 class LogoAtom extends StatelessWidget {
-  const LogoAtom({super.key});
+  final double width;
+
+  const LogoAtom({
+    super.key,
+    this.width = 120.0,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset('assets/todotee.png', width: 120.0);
+    return Image.asset(
+      'assets/todotee.png',
+      width: width,
+    );
   }
 }

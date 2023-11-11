@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todotee_app/dto/memo_response_dto.dart';
-import 'package:todotee_app/pages/add_memo/add_memo_page.dart';
+import 'package:todotee_app/pages/memo_edit/memo_edit_page.dart';
 import 'package:todotee_app/pages/memo/bloc/memo_bloc.dart';
 import 'package:todotee_app/pages/memo/bloc/memo_event.dart';
 import 'package:todotee_app/pages/memo/bloc/memo_state.dart';
 import 'package:todotee_app/pages/memo/widgets/memo_error_message_organism.dart';
 import 'package:todotee_app/pages/memo/widgets/memo_item_list_organism.dart';
+import 'package:todotee_app/pages/memo_edit/memo_edit_page_arguments.dart';
+import 'package:todotee_app/pages/memo_edit/types/memo_edit_type.dart';
 
 class MemoPage extends StatelessWidget {
   const MemoPage({super.key});
@@ -36,7 +37,7 @@ class MemoPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed(AddMemoPage.routeName);
+          Navigator.of(context).pushNamed(MemoEditPage.routeName, arguments: MemoEditPageArguments(memoEditType: MemoEditType.create));
         },
         child: const Icon(Icons.add),
       ),

@@ -10,10 +10,14 @@ class MemoItemListOrganism extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children:
-            memoList.map((memo) => MemoItemMolecule(memo: memo)).toList(),
+    return SizedBox(
+      child: ListView.separated(
+        itemCount: memoList.length,
+        itemBuilder: (context, index) => MemoItemMolecule(
+          dismissibleKey: ValueKey<int>(index),
+          memo: memoList[index],
+        ),
+        separatorBuilder: (context, index) => const SizedBox(height: 20.0),
       ),
     );
   }
